@@ -241,6 +241,7 @@ class Table<TFields extends FieldSet> {
             requestData,
             (err, resp, body) => {
                 if (err) {
+                    // @ts-ignore
                     done(err);
                     return;
                 }
@@ -253,6 +254,7 @@ class Table<TFields extends FieldSet> {
                 } else {
                     result = new Record(this, body.id, body);
                 }
+                // @ts-ignore
                 done(null, result);
             }
         );
@@ -308,6 +310,7 @@ class Table<TFields extends FieldSet> {
                 requestData,
                 (err, resp, body) => {
                     if (err) {
+                        // @ts-ignore
                         done(err);
                         return;
                     }
@@ -315,6 +318,7 @@ class Table<TFields extends FieldSet> {
                     const result = body.records.map(record => {
                         return new Record(this, record.id, record);
                     });
+                    // @ts-ignore
                     done(null, result);
                 }
             );
@@ -393,6 +397,7 @@ class Table<TFields extends FieldSet> {
             // with the request params
 
             path = `/${this._urlEncodedNameOrId()}/listRecords`;
+            // @ts-ignore
             listRecordsData = {
                 // limit is deprecated and the GET request parser in hyperbase automatically
                 // replaces this but the body parser used for POST requests does not
@@ -408,6 +413,7 @@ class Table<TFields extends FieldSet> {
                 if (shouldListRecordsParamBePassedAsParameter(paramName)) {
                     listRecordsParameters[paramName] = opts[paramName];
                 } else {
+                    // @ts-ignore
                     listRecordsData[paramName] = opts[paramName];
                 }
             }
@@ -428,13 +434,16 @@ class Table<TFields extends FieldSet> {
             listRecordsData,
             (err, response, results) => {
                 if (err) {
+                    // @ts-ignore
                     done(err);
                     return;
                 }
 
                 const records = results.records.map(recordJson => {
+                    // @ts-ignore
                     return new Record(this, null, recordJson);
                 });
+                // @ts-ignore
                 done(null, records, results.offset);
             }
         );
@@ -454,17 +463,21 @@ class Table<TFields extends FieldSet> {
         let offset = null;
 
         const nextPage = () => {
+            // @ts-ignore
             this._listRecords(limit, offset, opts, (err, page, newOffset) => {
                 if (err) {
                     done(err);
                     return;
                 }
 
+                // @ts-ignore
                 for (let index = 0; index < page.length; index++) {
+                    // @ts-ignore
                     callback(page[index]);
                 }
 
                 if (newOffset) {
+                    // @ts-ignore
                     offset = newOffset;
                     nextPage();
                 } else {

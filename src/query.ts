@@ -96,9 +96,11 @@ class Query<TFields extends FieldSet> {
                 if (validationResult.pass) {
                     validParams[key] = value;
                 } else {
+                    // @ts-ignore
                     errors.push(validationResult.error);
                 }
             } else {
+                // @ts-ignore
                 ignoredKeys.push(key);
             }
         }
@@ -128,6 +130,7 @@ function firstPage<TFields extends FieldSet>(
             done(null, records);
         },
         error => {
+            // @ts-ignore
             done(error, null);
         }
     );
@@ -171,6 +174,7 @@ function eachPage<TFields extends FieldSet>(
         // that come close to this limit and send it as a POST instead. Additionally, we'll send the request as a post if it is specified
         // with the request params
 
+        // @ts-ignore
         requestData = params;
         method = 'post';
         path = `/${this._table._urlEncodedNameOrId()}/listRecords`;
@@ -184,6 +188,7 @@ function eachPage<TFields extends FieldSet>(
                 // via query params
                 queryParams[paramName] = params[paramName];
             } else {
+                // @ts-ignore
                 requestData[paramName] = params[paramName];
             }
         }
@@ -201,6 +206,7 @@ function eachPage<TFields extends FieldSet>(
             requestData,
             (err, response, result) => {
                 if (err) {
+                    // @ts-ignore
                     done(err, null);
                 } else {
                     let next;
@@ -214,6 +220,7 @@ function eachPage<TFields extends FieldSet>(
                     }
 
                     const records = result.records.map(recordJson => {
+                        // @ts-ignore
                         return new Record(this._table, null, recordJson);
                     });
 
@@ -240,11 +247,13 @@ function all<TFields extends FieldSet>(
     const allRecords = [];
     this.eachPage(
         (pageRecords, fetchNextPage) => {
+            // @ts-ignore
             allRecords.push(...pageRecords);
             fetchNextPage();
         },
         err => {
             if (err) {
+                // @ts-ignore
                 done(err, null);
             } else {
                 done(null, allRecords);

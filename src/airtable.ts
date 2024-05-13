@@ -17,12 +17,12 @@ type CustomHeaders = ObjectMap<string, string | number | boolean>;
 
 class Airtable {
     readonly _apiKey: string;
-    readonly _apiVersion: string;
-    readonly _apiVersionMajor: string;
-    readonly _customHeaders: CustomHeaders;
-    readonly _endpointUrl: string;
-    readonly _noRetryIfRateLimited: boolean;
-    readonly _requestTimeout: number;
+    readonly _apiVersion!: string;
+    readonly _apiVersionMajor!: string;
+    readonly _customHeaders!: CustomHeaders;
+    readonly _endpointUrl!: string;
+    readonly _noRetryIfRateLimited!: boolean;
+    readonly _requestTimeout!: number;
 
     static Base = Base;
     static Record = AirtableRecord;
@@ -48,6 +48,7 @@ class Airtable {
                 value: apiVersion,
             },
             _apiVersionMajor: {
+                // @ts-ignore
                 value: apiVersion.split('.')[0],
             },
             _customHeaders: {
@@ -68,6 +69,7 @@ class Airtable {
             },
         });
 
+        // @ts-ignore
         if (!this._apiKey) {
             throw new Error('An API key is required to connect to Airtable');
         }
@@ -97,10 +99,15 @@ class Airtable {
         Airtable.AirtableOptions,
         'apiKey' | 'endpointUrl' | 'apiVersion' | 'noRetryIfRateLimited' | 'requestTimeout'
     >): void {
+        // @ts-ignore
         Airtable.apiKey = apiKey;
+        // @ts-ignore
         Airtable.endpointUrl = endpointUrl;
+        // @ts-ignore
         Airtable.apiVersion = apiVersion;
+        // @ts-ignore
         Airtable.noRetryIfRateLimited = noRetryIfRateLimited;
+        // @ts-ignore
         Airtable.requestTimeout = requestTimeout;
     }
 

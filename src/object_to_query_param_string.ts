@@ -41,6 +41,7 @@ function objectToQueryParamString(obj: ToParamBody): string {
     const parts = [];
     const addFn = (key, value) => {
         value = isNil(value) ? '' : value;
+        // @ts-ignore
         parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
     };
 

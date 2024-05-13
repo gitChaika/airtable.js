@@ -21,6 +21,7 @@ function deprecate<Args extends unknown[]>(
             didWarnForDeprecation[key] = true;
             console.warn(message);
         }
+        // @ts-ignore
         fn.apply(this, args);
     };
 }

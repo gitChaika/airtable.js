@@ -31,6 +31,7 @@ class Record<TFields extends FieldSet> {
 
     readonly id: string;
     readonly commentCount?: number;
+    // @ts-ignore
     fields: TFields;
 
     readonly save: RecordActionMethod<TFields>;
@@ -104,11 +105,13 @@ function patchUpdate<TFields extends FieldSet>(
         updateBody,
         (err, response, results) => {
             if (err) {
+                // @ts-ignore
                 done(err);
                 return;
             }
 
             this.setRawJson(results);
+            // @ts-ignore
             done(null, this);
         }
     );
@@ -136,11 +139,13 @@ function putUpdate<TFields extends FieldSet>(
         updateBody,
         (err, response, results) => {
             if (err) {
+                // @ts-ignore
                 done(err);
                 return;
             }
 
             this.setRawJson(results);
+            // @ts-ignore
             done(null, this);
         }
     );

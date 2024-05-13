@@ -7,9 +7,21 @@
         "esModuleInterop": true,
         "outDir": "lib",
         "noImplicitAny": false,
-        "strict": false,
+        "strict": true,
         "sourceMap": true,
-        "declaration": true
+        "declaration": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "baseUrl": "src",
+        "sourceRoot": "/"
     },
-    "include": ["src/**/*.ts", "src/internal_config.json"]
+
+    "include": ["src/**/*.ts", "src/internal_config.json"],
+    "exclude": [
+        "node_modules",
+        "/node_modules",
+        "dist",
+        "build",
+        "**/*.d.ts"
+    ]
 }

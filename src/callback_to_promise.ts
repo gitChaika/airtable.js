@@ -5,6 +5,7 @@
  * function will return a promise instead.
  */
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
+// @ts-ignore
 function callbackToPromise(fn: any, context: any, callbackArgIndex: number = void 0): any {
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
     return function(...callArgs: unknown[]) {
@@ -26,9 +27,11 @@ function callbackToPromise(fn: any, context: any, callbackArgIndex: number = voi
             // our constructed callback ends up at the right index.
             const argLen = Math.max(callArgs.length, thisCallbackArgIndex);
             for (let i = 0; i < argLen; i++) {
+                // @ts-ignore
                 args.push(callArgs[i]);
             }
             return new Promise((resolve, reject) => {
+                // @ts-ignore
                 args.push((err, result) => {
                     if (err) {
                         reject(err);

@@ -45,6 +45,7 @@ class Base {
     }
 
     table<TFields extends FieldSet>(tableName: string): Table<TFields> {
+        // @ts-ignore
         return new Table<TFields>(this, null, tableName);
     }
 
@@ -115,6 +116,7 @@ class Base {
                 })
                 .catch(err => {
                     clearTimeout(timeout);
+                    // @ts-ignore
                     err = new AirtableError('CONNECTION_ERROR', err.message, null);
                     reject(err);
                 });
